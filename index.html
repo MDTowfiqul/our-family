@@ -6,7 +6,7 @@
 <title>Our Family — Free books, apps &amp; resources</title>
 <meta name="description" content="Our Family — free Islamic ebooks, apps, and resources. Our Days, Our Boighar, Our Islamic Archive, and Our Ebook Maker.">
 <script src="https://cdn.tailwindcss.com"></script>
-<script>tailwind.config = { darkMode: "class" };</script>
+<script>if (window.tailwind) tailwind.config = { darkMode: "class" };</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Noto+Serif+Bengali:wght@600;800&display=swap" rel="stylesheet">
 <style>
@@ -33,6 +33,13 @@
   #drawer { transition: transform .25s ease; }
   #drawer.drawer-closed { transform: translateX(-110%); }
   #drawerBackdrop.drawer-closed { display: none; }
+  @keyframes lanternGlow {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, .45); }
+    50% { box-shadow: 0 0 24px 6px rgba(245, 158, 11, .55); }
+  }
+  #guideFab { animation: lanternGlow 2.4s ease-in-out infinite; }
+  #guideFab.thinking { animation: lanternGlow .8s ease-in-out infinite; }
+  #guideMsgs { scrollbar-width: thin; }
 </style>
 </head>
 <body class="bg-neutral-50 text-neutral-800 dark:bg-slate-900 dark:text-slate-100">
@@ -220,6 +227,9 @@
     document.querySelectorAll('[data-bn]').forEach(function (el) {
       el.textContent = (lang === 'bn') ? el.getAttribute('data-bn') : el.getAttribute('data-en');
     });
+    document.querySelectorAll('[data-bn-ph]').forEach(function (el) {
+      el.placeholder = (lang === 'bn') ? el.getAttribute('data-bn-ph') : el.getAttribute('data-en-ph');
+    });
     document.documentElement.lang = lang;
     document.getElementById('langBtn').textContent = (lang === 'bn') ? 'EN' : 'BN';
     try { localStorage.setItem('oem-lang', lang); } catch (e) {}
@@ -267,6 +277,177 @@
     var saved = localStorage.getItem('oem-lang');
     if (saved === 'bn') applyLang('bn');
   } catch (e) {}
+</script>
+<!-- Our Guide bot: floating lantern + chat panel (rule-based, no API keys) -->
+<button id="guideFab" class="fixed bottom-5 right-5 z-40 w-14 h-14 rounded-full bg-amber-500 text-3xl shadow-xl" aria-label="Our Guide">🏮</button>
+<div id="guideTip" class="hidden fixed bottom-24 right-5 z-40 max-w-[240px] bg-white dark:bg-slate-800 rounded-2xl shadow-xl px-4 py-3 text-sm font-bold" data-bn="আস-সালামু আলাইকুম! বই বা টুল খুঁজছেন?" data-en="As-salamu alaykum! Looking for a book or tool?">As-salamu alaykum! Looking for a book or tool?</div>
+<section id="guidePanel" class="hidden fixed bottom-24 right-4 z-50 w-[92vw] max-w-sm rounded-3xl overflow-hidden shadow-2xl border border-amber-200 dark:border-slate-700">
+  <header class="bg-emerald-800 text-white px-4 py-3 border-b-4 border-amber-500 flex items-center gap-3">
+    <span class="text-3xl">🏮</span>
+    <div class="flex-1">
+      <p class="font-extrabold leading-tight">Our Guide</p>
+      <p class="text-xs opacity-80" data-bn="আমাদের পরিবারের লাইব্রেরিয়ান" data-en="The Our Family librarian">The Our Family librarian</p>
+    </div>
+    <button id="guideClose" class="text-2xl leading-none px-1" aria-label="Close">×</button>
+  </header>
+  <div id="guideMsgs" class="bg-[#FAF7F2] dark:bg-slate-900 px-3 py-3 space-y-2 overflow-y-auto" style="height:340px"></div>
+  <div class="bg-white dark:bg-slate-800 px-3 pt-2 pb-1 flex flex-wrap gap-1.5">
+    <button class="guide-chip rounded-full bg-emerald-100 dark:bg-emerald-900 text-emerald-800 dark:text-emerald-100 text-xs font-bold px-3 py-1.5" data-mode="book" data-bn="📚 বই খুঁজুন" data-en="📚 Find a book">📚 Find a book</button>
+    <button class="guide-chip rounded-full bg-teal-100 dark:bg-teal-900 text-teal-800 dark:text-teal-100 text-xs font-bold px-3 py-1.5" data-mode="archive" data-bn="🕌 আর্কাইভ খুঁজুন" data-en="🕌 Search Archive">🕌 Search Archive</button>
+    <button class="guide-chip rounded-full bg-violet-100 dark:bg-violet-900 text-violet-800 dark:text-violet-100 text-xs font-bold px-3 py-1.5" data-mode="maker" data-bn="🛠️ মেকার সাহায্য" data-en="🛠️ Maker help">🛠️ Maker help</button>
+    <button class="guide-chip rounded-full bg-amber-100 dark:bg-amber-900 text-amber-800 dark:text-amber-100 text-xs font-bold px-3 py-1.5" data-mode="today" data-bn="📖 আজকের পড়া" data-en="📖 Today's Reading">📖 Today's Reading</button>
+  </div>
+  <div class="bg-white dark:bg-slate-800 px-3 pb-2 pt-1 flex gap-2">
+    <input id="guideInput" type="text" class="flex-1 min-w-0 border border-neutral-300 dark:border-slate-600 bg-white dark:bg-slate-700 rounded-xl px-3 py-2 text-sm" data-en-ph="Type a topic, title, or author…" data-bn-ph="বিষয়, বইয়ের নাম বা লেখক লিখুন…" placeholder="Type a topic, title, or author…">
+    <button id="guideSend" class="bg-emerald-700 text-white rounded-xl px-4 font-bold text-sm" data-bn="পাঠান" data-en="Send">Send</button>
+  </div>
+  <p class="bg-white dark:bg-slate-800 px-3 pb-3 text-[11px] text-neutral-500 dark:text-slate-400" data-bn="আমি Our Family-র বই আর টুল খুঁজতে সাহায্য করি। ধর্মীয় ফতোয়ার জন্য দয়া করে যোগ্য আলেমের কাছে যান।" data-en="I help you navigate Our Family's books and tools. For specific religious rulings (fatwas), please consult qualified scholars.">I help you navigate Our Family's books and tools. For specific religious rulings (fatwas), please consult qualified scholars.</p>
+</section>
+<script>
+(function () {
+  var BN = function () { return document.documentElement.lang === 'bn'; };
+  var STR = {
+    greeting: { en: "As-salamu alaykum wa rahmatullahi wa barakatuh! I am <b>Our Guide</b>. I can help you find books, search the Archive, or use the Ebook Maker. Tap a button below, or just type what you are looking for.", bn: "আস-সালামু আলাইকুম ওয়া রহমাতুল্লাহি ওয়া বারাকাতুহ! আমি <b>Our Guide</b>। আমি বই খুঁজতে, আর্কাইভ সার্চ করতে বা Ebook Maker ব্যবহারে সাহায্য করতে পারি। নিচের একটি বাটন চাপুন, অথবা যা খুঁজছেন লিখুন।" },
+    askBook: { en: "What kind of book are you looking for? Type a topic, a title, or an author — for example, <i>Seerah</i> or <i>Aqeedah</i>.", bn: "কেমন বই খুঁজছেন? বিষয়, বইয়ের নাম বা লেখকের নাম লিখুন — যেমন <i>সিরাত</i> বা <i>আকিদা</i>।" },
+    askArchive: { en: "What are you looking for in the Archive? Type a topic or a collection name.", bn: "আর্কাইভে কী খুঁজছেন? বিষয় বা সংগ্রহের নাম লিখুন।" },
+    askMaker: { en: "What are you stuck on with the Ebook Maker? Try: <i>scanned PDF</i>, <i>EPUB</i>, <i>Kindle</i>, or <i>cover</i>.", bn: "Ebook Maker-এ কোথায় আটকে গেছেন? লিখুন: <i>স্ক্যান করা PDF</i>, <i>EPUB</i>, <i>Kindle</i> বা <i>কভার</i>।" },
+    noResults: { en: "I could not find that here. Try a broader word, or open the full library:", bn: "এখানে সেটা পেলাম না। আরেকটু সাধারণ শব্দ দিয়ে চেষ্টা করুন, অথবা পুরো লাইব্রেরি দেখুন:" },
+    fatwa: { en: "I can't answer religious rulings — for a fatwa, please ask a qualified scholar. But I can help you find a book on this topic: tap 📚 Find a book and type the subject.", bn: "আমি ধর্মীয় ফতোয়া দিতে পারব না — ফতোয়ার জন্য দয়া করে যোগ্য আলেমের কাছে যান। তবে এ বিষয়ে বই খুঁজতে সাহায্য করতে পারি: 📚 বই খুঁজুন চাপুন আর বিষয়টি লিখুন।" },
+    catalogFail: { en: "The catalog could not be loaded right now. You can browse it directly:", bn: "ক্যাটালগ এখন লোড করা যাচ্ছে না। সরাসরি দেখতে পারেন:" },
+    foundBook: { en: "Here is what I found in Our Boighar:", bn: "Our Boighar-এ যা পেলাম:" },
+    foundArchive: { en: "Here is what I found in the Archive:", bn: "আর্কাইভে যা পেলাম:" },
+    today: { en: "Today's reading pick for you:", bn: "আপনার জন্য আজকের পড়ার বই:" },
+    makerPdf: { en: "To turn a scanned PDF into an EPUB: 1) In the Maker's Step 2, copy the prompt and paste it into a Muse chat together with your PDF. 2) Muse sends back a formatted Google Doc. 3) Download it as .docx, upload it in the Maker's Step 3, add your cover and credit, and download the EPUB.", bn: "স্ক্যান করা PDF থেকে EPUB বানাতে: ১) Maker-এর Step 2 থেকে প্রম্পট কপি করে আপনার PDF-সহ Muse চ্যাটে পেস্ট করুন। ২) Muse একটি ফরম্যাট করা Google Doc দেবে। ৩) সেটি .docx হিসেবে ডাউনলোড করে Maker-এর Step 3-এ আপলোড করুন, কভার আর ক্রেডিট যোগ করুন, তারপর EPUB ডাউনলোড করুন।" },
+    makerEpub: { en: "In the Maker's Step 3, upload your .docx, add the cover and creator credit, then tap Download EPUB. Check the document first — the Maker warns you before the upload for exactly this reason.", bn: "Maker-এর Step 3-এ আপনার .docx আপলোড করুন, কভার আর নির্মাতার ক্রেডিট যোগ করুন, তারপর Download EPUB চাপুন। আগে ডকুমেন্টটি দেখে নিন — Maker আপলোডের আগেই এ ব্যাপারে সতর্ক করে।" },
+    makerKindle: { en: "For Kindle: build the EPUB first, then upload THAT EPUB to the online converter — never the .docx directly, or you will lose the cover and credit page.", bn: "Kindle-এর জন্য: আগে EPUB বানান, তারপর সেই EPUB-ই অনলাইন কনভার্টারে আপলোড করুন — .docx সরাসরি আপলোড করবেন না, তাহলে কভার আর ক্রেডিট পেজ হারিয়ে যাবে।" },
+    makerCover: { en: "Upload your cover image in the Maker's Step 3 — it becomes the first page of the EPUB. No cover? The Maker can search for one online or make a text cover for you.", bn: "Maker-এর Step 3-এ কভার ছবি আপলোড করুন — সেটি EPUB-এর প্রথম পেজ হবে। কভার না থাকলে Maker অনলাইনে খুঁজে দিতে পারে বা টেক্সট কভার বানিয়ে দিতে পারে।" },
+    makerOther: { en: "For Maker help, the full guide is here, and the video tutorial walks through every step:", bn: "Maker-এর পূর্ণ গাইড এখানে, আর ভিডিও টিউটোরিয়ালে প্রতিটি ধাপ দেখানো হয়েছে:" }
+  };
+  function t(k) { return BN() ? STR[k].bn : STR[k].en; }
+  var fab = document.getElementById('guideFab');
+  var tip = document.getElementById('guideTip');
+  var panel = document.getElementById('guidePanel');
+  var msgs = document.getElementById('guideMsgs');
+  var input = document.getElementById('guideInput');
+  var mode = null, greeted = false, books = null, archive = null;
+  function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
+  function addMsg(html, who) {
+    var d = document.createElement('div');
+    d.className = who === 'user'
+      ? 'ml-auto max-w-[85%] bg-emerald-700 text-white rounded-2xl px-3 py-2 text-sm'
+      : 'max-w-[92%] bg-white dark:bg-slate-800 rounded-2xl px-3 py-2 text-sm shadow';
+    d.innerHTML = html;
+    msgs.appendChild(d);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+  function norm(s) { return (s || '').toLowerCase(); }
+  function searchItems(items, hayFn, q) {
+    var words = norm(q).split(/\s+/).filter(Boolean);
+    if (!words.length) return [];
+    return items.filter(function (it) {
+      var hay = norm(hayFn(it));
+      return words.every(function (w) { return hay.indexOf(w) !== -1; });
+    }).slice(0, 6);
+  }
+  function bookCard(b) {
+    return '<div class="border border-neutral-200 dark:border-slate-700 rounded-xl px-3 py-2 mt-1">'
+      + '<p class="font-bold">' + esc(b.title) + '</p>'
+      + '<p class="text-xs text-neutral-500 dark:text-slate-400">' + esc(b.author || '') + (b.category ? ' • ' + esc(b.category) : '') + '</p>'
+      + '<a class="inline-block mt-1 bg-emerald-600 text-white rounded-lg px-3 py-1 text-xs font-bold" target="_blank" rel="noopener" href="https://mdtowfiqul.github.io' + esc(b.url) + '">' + (BN() ? 'বইটি দেখুন' : 'Open book') + '</a></div>';
+  }
+  function archiveCard(r) {
+    var link = r.link || 'https://mdtowfiqul.github.io/our-islamic-archive/';
+    return '<div class="border border-neutral-200 dark:border-slate-700 rounded-xl px-3 py-2 mt-1">'
+      + '<p class="font-bold">' + esc(r.title) + '</p>'
+      + '<p class="text-xs text-neutral-500 dark:text-slate-400">' + esc(r.category || '') + (r.type ? ' • ' + esc(r.type) : '') + '</p>'
+      + '<a class="inline-block mt-1 bg-teal-600 text-white rounded-lg px-3 py-1 text-xs font-bold" target="_blank" rel="noopener" href="' + esc(link) + '">' + (BN() ? 'রিসোর্স দেখুন' : 'Open resource') + '</a></div>';
+  }
+  function loadBooks() {
+    if (books) return Promise.resolve(books);
+    return fetch('https://mdtowfiqul.github.io/our-boighar/search.json').then(function (r) { return r.json(); })
+      .catch(function () { return fetch('books.json').then(function (r) { return r.json(); }); })
+      .then(function (j) { books = j; return j; });
+  }
+  function loadArchive() {
+    if (archive) return Promise.resolve(archive);
+    return fetch('resources.json').then(function (r) { return r.json(); }).then(function (j) { archive = j; return j; });
+  }
+  function think(fn) {
+    fab.classList.add('thinking');
+    var d = document.createElement('div');
+    d.className = 'max-w-[92%] bg-white dark:bg-slate-800 rounded-2xl px-3 py-2 text-sm shadow';
+    d.innerHTML = '🏮 …';
+    msgs.appendChild(d);
+    msgs.scrollTop = msgs.scrollHeight;
+    setTimeout(function () { d.remove(); fab.classList.remove('thinking'); fn(); }, 500);
+  }
+  function answerBook(q) {
+    loadBooks().then(function (list) {
+      var hits = searchItems(list, function (b) { return [b.title, b.title_en, b.author, b.category, (b.categories || []).join(' ')].join(' '); }, q);
+      if (!hits.length) { addMsg(t('noResults') + ' <a class="text-emerald-700 dark:text-emerald-300 font-bold" target="_blank" rel="noopener" href="https://mdtowfiqul.github.io/our-boighar/">Our Boighar</a>', 'bot'); return; }
+      addMsg(t('foundBook') + hits.map(bookCard).join(''), 'bot');
+    }).catch(function () { addMsg(t('catalogFail') + ' <a class="text-emerald-700 dark:text-emerald-300 font-bold" target="_blank" rel="noopener" href="https://mdtowfiqul.github.io/our-boighar/">Our Boighar</a>', 'bot'); });
+  }
+  function answerArchive(q) {
+    loadArchive().then(function (list) {
+      var hits = searchItems(list, function (r) { return [r.title, r.title_en, r.category, r.type, r.description].join(' '); }, q);
+      if (!hits.length) { addMsg(t('noResults') + ' <a class="text-teal-700 dark:text-teal-300 font-bold" target="_blank" rel="noopener" href="https://mdtowfiqul.github.io/our-islamic-archive/">Our Islamic Archive</a>', 'bot'); return; }
+      addMsg(t('foundArchive') + hits.map(archiveCard).join(''), 'bot');
+    }).catch(function () { addMsg(t('catalogFail') + ' <a class="text-teal-700 dark:text-teal-300 font-bold" target="_blank" rel="noopener" href="https://mdtowfiqul.github.io/our-islamic-archive/">Our Islamic Archive</a>', 'bot'); });
+  }
+  function answerMaker(q) {
+    var h = norm(q);
+    if (h.indexOf('kindle') !== -1 || h.indexOf('mobi') !== -1 || h.indexOf('azw') !== -1) { addMsg(t('makerKindle'), 'bot'); return; }
+    if (h.indexOf('cover') !== -1 || h.indexOf('কভার') !== -1) { addMsg(t('makerCover'), 'bot'); return; }
+    if (h.indexOf('epub') !== -1) { addMsg(t('makerEpub'), 'bot'); return; }
+    if (h.indexOf('pdf') !== -1 || h.indexOf('scan') !== -1 || h.indexOf('স্ক্যান') !== -1 || h.indexOf('muse') !== -1) { addMsg(t('makerPdf'), 'bot'); return; }
+    addMsg(t('makerOther') + ' <a class="text-violet-700 dark:text-violet-300 font-bold" target="_blank" rel="noopener" href="https://mdtowfiqul.github.io/our-ebook-maker/guide.html">' + (BN() ? 'গাইড' : 'Guide') + '</a> • <a class="text-violet-700 dark:text-violet-300 font-bold" target="_blank" rel="noopener" href="https://youtu.be/KqrjLszaUYI">' + (BN() ? 'ভিডিও টিউটোরিয়াল' : 'Video tutorial') + '</a>', 'bot');
+  }
+  function send() {
+    var q = input.value.trim();
+    if (!q) return;
+    input.value = '';
+    addMsg(esc(q), 'user');
+    think(function () {
+      if (q.indexOf('?') !== -1 && mode !== 'book' && mode !== 'archive') { addMsg(t('fatwa'), 'bot'); return; }
+      if (mode === 'archive') answerArchive(q);
+      else if (mode === 'maker') answerMaker(q);
+      else answerBook(q);
+    });
+  }
+  document.getElementById('guideSend').addEventListener('click', send);
+  input.addEventListener('keydown', function (e) { if (e.key === 'Enter') send(); });
+  document.querySelectorAll('.guide-chip').forEach(function (c) {
+    c.addEventListener('click', function () {
+      var m = c.getAttribute('data-mode');
+      if (m === 'today') {
+        think(function () {
+          loadBooks().then(function (list) {
+            var b = list[Math.floor(Math.random() * list.length)];
+            addMsg(t('today') + bookCard(b), 'bot');
+          }).catch(function () { addMsg(t('catalogFail') + ' <a class="text-emerald-700 dark:text-emerald-300 font-bold" target="_blank" rel="noopener" href="https://mdtowfiqul.github.io/our-boighar/">Our Boighar</a>', 'bot'); });
+        });
+        return;
+      }
+      mode = m;
+      addMsg(m === 'book' ? t('askBook') : (m === 'archive' ? t('askArchive') : t('askMaker')), 'bot');
+      input.focus();
+    });
+  });
+  function openPanel() {
+    panel.classList.remove('hidden');
+    tip.classList.add('hidden');
+    try { localStorage.setItem('of-guide-seen', '1'); } catch (e) {}
+    if (!greeted) { greeted = true; addMsg(t('greeting'), 'bot'); }
+  }
+  fab.addEventListener('click', function () { panel.classList.contains('hidden') ? openPanel() : panel.classList.add('hidden'); });
+  document.getElementById('guideClose').addEventListener('click', function () { panel.classList.add('hidden'); });
+  try {
+    if (!localStorage.getItem('of-guide-seen')) {
+      setTimeout(function () { if (panel.classList.contains('hidden')) tip.classList.remove('hidden'); }, 1500);
+    }
+  } catch (e) {}
+})();
 </script>
 </body>
 </html>
