@@ -48,38 +48,38 @@
   .hero { background: #171310; color: #f5efe4; border: 1px solid rgba(245, 239, 228, .08); border-radius: 16px; }
   .hero .sub { color: #c9bfa9; }
 
-  /* Book-cover shelf in the hero: real covers, fanned, rising from the bottom edge. */
-  .shelf { display: flex; align-items: flex-end; justify-content: center; }
-  .shelf a { width: 64px; flex: none; display: block; border-radius: 8px; overflow: hidden; border: 1px solid rgba(255, 255, 255, .14); box-shadow: 0 8px 24px rgba(0, 0, 0, .35); transition: filter 150ms cubic-bezier(.22,1,.36,1); }
-  .shelf a:hover { filter: brightness(1.08); }
-  .shelf a img { width: 100%; aspect-ratio: 2 / 3; object-fit: cover; display: block; }
-  .shelf a + a { margin-left: -12px; }
-  .shelf a:nth-child(1) { transform: rotate(-5deg) translateY(6px); }
-  .shelf a:nth-child(2) { transform: rotate(-1.5deg); z-index: 2; }
-  .shelf a:nth-child(3) { transform: rotate(2deg) translateY(4px); }
-  .shelf a:nth-child(4) { transform: rotate(6deg) translateY(10px); }
-  @media (min-width: 768px) { .shelf a { width: 96px; } .shelf a + a { margin-left: -14px; } }
+  /* Hero — the five projects as one row of icon tiles. */
+  .hero-tiles { display: flex; gap: 8px; }
+  .hero-tile { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 16px 4px 12px; border-radius: 12px; border: 1px solid rgba(245, 239, 228, .14); background: rgba(245, 239, 228, .05); color: #f5efe4; text-decoration: none; transition: background-color 150ms cubic-bezier(.22,1,.36,1), border-color 150ms cubic-bezier(.22,1,.36,1); }
+  .hero-tile:hover { background: rgba(245, 239, 228, .1); border-color: rgba(245, 239, 228, .28); }
+  .hero-tile svg { width: 26px; height: 26px; color: var(--acc); }
+  .hero-tile span { font-size: 11px; font-weight: 500; line-height: 1.2; text-align: center; }
+  @media (min-width: 768px) { .hero-tile svg { width: 30px; height: 30px; } .hero-tile span { font-size: 12px; } }
   .mini-covers { display: flex; gap: 8px; }
-  .mini-covers a { width: 56px; flex: none; display: block; border-radius: 6px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 4px 12px rgba(0, 0, 0, .12); transition: filter 150ms cubic-bezier(.22,1,.36,1); }
+  .mini-covers a { width: 72px; flex: none; display: block; border-radius: 6px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 4px 12px rgba(0, 0, 0, .12); transition: filter 150ms cubic-bezier(.22,1,.36,1); }
   .mini-covers a:hover { filter: brightness(1.05); }
   .mini-covers img { width: 100%; aspect-ratio: 2 / 3; object-fit: cover; display: block; }
 
-  /* Product previews built in code: a phone, a shelf list, a small book. */
-  .phone { width: 96px; height: 168px; flex: none; border: 1px solid var(--line); border-radius: 16px; background: var(--card); padding: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, .08); }
-  .phone .rule { width: 24px; height: 2px; background: var(--acc); border-radius: 2px; }
-  .shelf-rows { width: 100%; max-width: 240px; }
-  .shelf-row { display: flex; align-items: center; gap: 10px; height: 36px; border-bottom: 1px solid var(--line); font-size: 14px; font-weight: 500; }
-  .shelf-row:last-child { border-bottom: none; }
-  .mini-book { width: 84px; aspect-ratio: 2 / 3; flex: none; background: #f3e9d2; border: 1px solid var(--line); border-radius: 4px 8px 8px 4px; box-shadow: 0 4px 12px rgba(0, 0, 0, .12); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; color: #5e554a; }
+  /* Project covers: a flat deep-warm panel with the project's icon, large. */
+  .visual-dark { background: #171310; color: #f5efe4; }
+  .visual-dark .ua svg { filter: invert(1); opacity: 1; }
+  .cover { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; text-align: center; }
+  .cover .ua { width: 40px; height: 40px; }
+  .cover .ua svg { width: 40px; height: 40px; }
+  .cover-name { font-family: "Noto Serif Bengali", serif; font-size: 20px; font-weight: 500; }
+  .cover-tag { font-size: 12px; color: #c9bfa9; }
+  .cover img { width: 96px; height: 96px; border-radius: 20px; display: block; box-shadow: 0 8px 24px rgba(0, 0, 0, .35); }
+  .cover-chips { display: flex; gap: 6px; margin-top: 2px; }
+  .cover-chips span { font-size: 11px; font-weight: 500; color: #c9bfa9; border: 1px solid rgba(245, 239, 228, .2); border-radius: 999px; padding: 3px 8px; }
+
+  /* Ebook Maker cover: a small book, built in code. */
+  .mini-book { width: 108px; aspect-ratio: 2 / 3; flex: none; background: #f3e9d2; border: 1px solid var(--line); border-radius: 4px 10px 10px 4px; box-shadow: 0 8px 20px rgba(0, 0, 0, .25); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; color: #5e554a; }
   .mini-book .ua svg { filter: none !important; opacity: 1; }
 
-  /* Reader preview: an open book, built in code. */
-  .reader { display: flex; }
-  .reader-page { width: 84px; background: var(--card); border: 1px solid var(--line); padding: 16px 12px; }
-  .reader-page:first-child { border-radius: 8px 2px 2px 8px; border-right: none; }
-  .reader-page:last-child { border-radius: 2px 8px 8px 2px; }
-  .reader-page .rl { display: block; height: 6px; background: var(--raised); border-radius: 3px; margin-bottom: 8px; }
-  .reader-page .rl.acc { background: var(--acc); width: 28px; }
+  /* Icon tile for horizontal community/developer rows. */
+  .ic-tile { width: 40px; height: 40px; flex: none; display: flex; align-items: center; justify-content: center; border-radius: 12px; background: var(--raised); border: 1px solid var(--line); }
+  .ic-tile .ua { width: 22px; height: 22px; }
+  .ic-tile .ua svg { width: 22px; height: 22px; opacity: .85; }
 
   /* useanimations icons: one size, muted; white on dark surfaces. */
   .ua { display: inline-flex; flex: none; width: 18px; height: 18px; align-items: center; justify-content: center; }
@@ -101,7 +101,7 @@
 </style>
 </head>
 <body>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="ic-lantern" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5v1.5"/><path d="M9.5 4h5"/><path d="M10 4h4l.8 2.2H9.2L10 4z"/><path d="M8.2 6.2h7.6l1.3 8.3a2 2 0 0 1-2 2.3H8.9a2 2 0 0 1-2-2.3l1.3-8.3z"/><path d="M12 6.2v10.6"/><path d="M10 6.5 9.4 16.8"/><path d="M14 6.5l.6 10.3"/><path d="M10 18.8h4"/><path d="M12 18.8V21"/></symbol></defs></svg>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="ic-lantern" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5v1.5"/><path d="M9.5 4h5"/><path d="M10 4h4l.8 2.2H9.2L10 4z"/><path d="M8.2 6.2h7.6l1.3 8.3a2 2 0 0 1-2 2.3H8.9a2 2 0 0 1-2-2.3l1.3-8.3z"/><path d="M12 6.2v10.6"/><path d="M10 6.5 9.4 16.8"/><path d="M14 6.5l.6 10.3"/><path d="M10 18.8h4"/><path d="M12 18.8V21"/></symbol><symbol id="ic-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></symbol><symbol id="ic-book-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></symbol><symbol id="ic-books" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="4.5" height="16" rx="1"/><rect x="9.75" y="4" width="4.5" height="16" rx="1"/><rect x="16.5" y="4" width="4.5" height="16" rx="1"/></symbol><symbol id="ic-archive" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/></symbol><symbol id="ic-file-text" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></symbol></defs></svg>
 <div class="max-w-5xl mx-auto px-6 pb-24">
 
   <!-- Top bar -->
@@ -156,11 +156,12 @@
           <a href="https://youtu.be/Bh20hlXjrIQ" target="_blank" rel="noopener" class="btn btn-quiet" style="background:transparent;color:#f5efe4;border-color:rgba(245,239,228,.25)"><span class="ua" data-ua="playPause" aria-hidden="true"></span><span data-bn="ট্রেইলার দেখুন" data-en="Watch the trailer">Watch the trailer</span></a>
         </div>
       </div>
-      <div class="shelf" aria-label="Books from Our Boighar">
-        <a href="https://mdtowfiqul.github.io/our-boighar/books/a-short-biography-of-prophet-muhammad/"><img src="https://mdtowfiqul.github.io/our-boighar/img/cover-a-short-biography-of-prophet-muhammad.jpg" alt="A Short Biography of Prophet Muhammad"></a>
-        <a href="https://mdtowfiqul.github.io/our-boighar/books/adab-al-mufrad/"><img src="https://mdtowfiqul.github.io/our-boighar/img/cover-adab-al-mufrad.jpg" alt="Adab al-Mufrad"></a>
-        <a href="https://mdtowfiqul.github.io/our-boighar/books/al-bidayah-wan-nihayah-vol-1/"><img src="https://mdtowfiqul.github.io/our-boighar/img/cover-al-bidayah-wan-nihayah-vol-1.jpg" alt="Al-Bidayah wan-Nihayah, volume 1"></a>
-        <a href="https://mdtowfiqul.github.io/our-boighar/books/adhorsh-muslim-poribar/"><img src="https://mdtowfiqul.github.io/our-boighar/img/cover-adhorsh-muslim-poribar.jpg" alt="Adorsho Muslim Poribar"></a>
+      <div class="hero-tiles" aria-label="Our projects">
+        <a class="hero-tile" href="https://play.google.com/store/apps/details?id=ourdays.app" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#ic-heart"/></svg><span>Our Days</span></a>
+        <a class="hero-tile" href="https://our-reader.vercel.app/" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#ic-book-open"/></svg><span>Our Reader</span></a>
+        <a class="hero-tile" href="https://mdtowfiqul.github.io/our-boighar/" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#ic-books"/></svg><span>Our Boighar</span></a>
+        <a class="hero-tile" href="https://mdtowfiqul.github.io/our-islamic-archive/" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#ic-archive"/></svg><span>Archive</span></a>
+        <a class="hero-tile" href="https://mdtowfiqul.github.io/our-ebook-maker/" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#ic-file-text"/></svg><span>Ebook Maker</span></a>
       </div>
     </div>
   </section>
@@ -192,12 +193,11 @@
 
     <div class="grid sm:grid-cols-2 gap-4 mt-5">
       <article class="card overflow-hidden">
-        <div class="visual">
-          <div class="phone">
+        <div class="visual visual-dark">
+          <div class="cover">
             <span class="ua" data-ua="heart" aria-hidden="true"></span>
-            <p class="text-sm font-semibold">Our Days</p>
-            <span class="rule"></span>
-            <p class="text-xs" style="color:var(--ink3)">Day counter</p>
+            <p class="cover-name">Our Days</p>
+            <p class="cover-tag">Day counter</p>
           </div>
         </div>
         <div class="p-5">
@@ -214,10 +214,11 @@
       </article>
 
       <article class="card overflow-hidden">
-        <div class="visual">
-          <div class="reader">
-            <div class="reader-page"><span class="rl acc"></span><span class="rl" style="width:88%"></span><span class="rl" style="width:96%"></span><span class="rl" style="width:76%"></span><span class="rl" style="width:90%"></span></div>
-            <div class="reader-page"><span class="rl" style="width:92%"></span><span class="rl" style="width:80%"></span><span class="rl" style="width:95%"></span><span class="rl" style="width:70%"></span><span class="rl" style="width:84%"></span></div>
+        <div class="visual visual-dark">
+          <div class="cover">
+            <img src="assets/our-reader-icon.png" alt="Our Reader app icon" loading="lazy">
+            <p class="cover-name">Our Reader</p>
+            <p class="cover-tag">Web + Android</p>
           </div>
         </div>
         <div class="p-5">
@@ -252,11 +253,12 @@
       </article>
 
       <article class="card overflow-hidden">
-        <div class="visual">
-          <div class="shelf-rows">
-            <div class="shelf-row"><span class="ua" data-ua="book" aria-hidden="true"></span><span>Books</span><span class="meta ml-auto">PDF</span></div>
-            <div class="shelf-row"><span class="ua" data-ua="playPause" aria-hidden="true"></span><span>Lectures</span><span class="meta ml-auto">Video</span></div>
-            <div class="shelf-row"><span class="ua" data-ua="archive" aria-hidden="true"></span><span>Courses</span><span class="meta ml-auto">Series</span></div>
+        <div class="visual visual-dark">
+          <div class="cover">
+            <span class="ua" data-ua="archive" aria-hidden="true"></span>
+            <p class="cover-name">Our Islamic Archive</p>
+            <p class="cover-tag">42+ resources</p>
+            <p class="cover-chips"><span>Books</span><span>Lectures</span><span>Courses</span></p>
           </div>
         </div>
         <div class="p-5">
@@ -270,7 +272,7 @@
       </article>
 
       <article class="card overflow-hidden">
-        <div class="visual">
+        <div class="visual visual-dark">
           <div class="mini-book">
             <span class="ua" data-ua="book" aria-hidden="true"></span>
             <p class="text-xs font-semibold">EPUB</p>
@@ -294,35 +296,43 @@
     <h2 class="serif text-2xl font-medium" data-bn="কমিউনিটিতে যোগ দিন" data-en="Join the community">Join the community</h2>
     <p class="text-sm mt-1" style="color:var(--ink2)" data-bn="ঘোষণা, আলোচনা আর নতুন বইয়ের খবর — সব এক জায়গায়।" data-en="Announcements, discussion, and new-book news — all in one place.">Announcements, discussion, and new-book news — all in one place.</p>
     <div class="grid sm:grid-cols-2 gap-4 mt-5">
-      <article class="card p-5">
-        <span class="ua" data-ua="youtube" aria-hidden="true"></span>
-        <h3 class="font-medium mt-2">YouTube — Muslim Proclaimer</h3>
-        <p class="text-sm mt-1" data-bn="ভিডিও ও টিউটোরিয়াল।" data-en="Videos and tutorials.">Videos and tutorials.</p>
-        <a href="https://www.youtube.com/@muslimproclaimer" target="_blank" rel="noopener" class="btn btn-neutral btn-sm mt-3" data-bn="চ্যানেল দেখুন" data-en="Visit the Channel">Visit the Channel</a>
-      </article>
-      <article class="card p-5">
-        <span class="ua" data-ua="facebook" aria-hidden="true"></span>
-        <h3 class="font-medium mt-2">Facebook Page — Our Family</h3>
-        <p class="text-sm mt-1" data-bn="ঘোষণা ও আপডেট।" data-en="Announcements and updates.">Announcements and updates.</p>
-        <a href="https://www.facebook.com/FBOurFamily" target="_blank" rel="noopener" class="btn btn-neutral btn-sm mt-3" data-bn="পেজ দেখুন" data-en="Visit the Page">Visit the Page</a>
-      </article>
-      <article class="card p-5">
-        <span class="ua" data-ua="telegram" aria-hidden="true"></span>
-        <h3 class="font-medium mt-2">Telegram — Channel, Group &amp; Bot</h3>
-        <p class="text-sm mt-1" data-bn="ঘোষণা, আলোচনা ও সাহায্য।" data-en="Announcements, discussion, and help.">Announcements, discussion, and help.</p>
-        <div class="flex flex-wrap gap-2 mt-3">
-          <a href="https://t.me/ourfamilybd" target="_blank" rel="noopener" class="btn btn-quiet btn-sm" data-bn="চ্যানেল" data-en="Channel">Channel</a>
-          <a href="https://t.me/Our_Family_bd" target="_blank" rel="noopener" class="btn btn-quiet btn-sm" data-bn="আলোচনা গ্রুপ" data-en="Discussion group">Discussion group</a>
-          <a href="https://t.me/OurfamilyBDBot" target="_blank" rel="noopener" class="btn btn-quiet btn-sm" data-bn="বট" data-en="Bot">Bot</a>
+      <article class="card p-4 flex gap-4">
+        <span class="ic-tile"><span class="ua" data-ua="youtube" aria-hidden="true"></span></span>
+        <div class="min-w-0 flex-1">
+          <h3 class="font-medium">YouTube — Muslim Proclaimer</h3>
+          <p class="text-sm mt-1" data-bn="ভিডিও ও টিউটোরিয়াল।" data-en="Videos and tutorials.">Videos and tutorials.</p>
+          <a href="https://www.youtube.com/@muslimproclaimer" target="_blank" rel="noopener" class="btn btn-neutral btn-sm mt-3" data-bn="চ্যানেল দেখুন" data-en="Visit the Channel">Visit the Channel</a>
         </div>
       </article>
-      <article class="card p-5">
-        <span class="ua" data-ua="users" aria-hidden="true"></span>
-        <h3 class="font-medium mt-2" data-bn="ইসলামিক রিসোর্স সংগ্রহশালা" data-en="Islamic Resource Library">Islamic Resource Library</h3>
-        <p class="text-sm mt-1" data-bn="আমাদের ফেসবুক গ্রুপ ও টেলিগ্রাম চ্যানেল — রিসোর্স শেয়ার আর আলোচনার জায়গা।" data-en="Our Facebook group and Telegram channel — where resources are shared and discussed.">Our Facebook group and Telegram channel — where resources are shared and discussed.</p>
-        <div class="flex flex-wrap gap-2 mt-3">
-          <a href="https://facebook.com/groups/963422407394224" target="_blank" rel="noopener" class="btn btn-quiet btn-sm">Facebook Group</a>
-          <a href="https://t.me/islamic_resource_library" target="_blank" rel="noopener" class="btn btn-quiet btn-sm">Telegram</a>
+      <article class="card p-4 flex gap-4">
+        <span class="ic-tile"><span class="ua" data-ua="facebook" aria-hidden="true"></span></span>
+        <div class="min-w-0 flex-1">
+          <h3 class="font-medium">Facebook Page — Our Family</h3>
+          <p class="text-sm mt-1" data-bn="ঘোষণা ও আপডেট।" data-en="Announcements and updates.">Announcements and updates.</p>
+          <a href="https://www.facebook.com/FBOurFamily" target="_blank" rel="noopener" class="btn btn-neutral btn-sm mt-3" data-bn="পেজ দেখুন" data-en="Visit the Page">Visit the Page</a>
+        </div>
+      </article>
+      <article class="card p-4 flex gap-4">
+        <span class="ic-tile"><span class="ua" data-ua="telegram" aria-hidden="true"></span></span>
+        <div class="min-w-0 flex-1">
+          <h3 class="font-medium">Telegram — Channel, Group &amp; Bot</h3>
+          <p class="text-sm mt-1" data-bn="ঘোষণা, আলোচনা ও সাহায্য।" data-en="Announcements, discussion, and help.">Announcements, discussion, and help.</p>
+          <div class="flex flex-wrap gap-2 mt-3">
+            <a href="https://t.me/ourfamilybd" target="_blank" rel="noopener" class="btn btn-quiet btn-sm" data-bn="চ্যানেল" data-en="Channel">Channel</a>
+            <a href="https://t.me/Our_Family_bd" target="_blank" rel="noopener" class="btn btn-quiet btn-sm" data-bn="আলোচনা গ্রুপ" data-en="Discussion group">Discussion group</a>
+            <a href="https://t.me/OurfamilyBDBot" target="_blank" rel="noopener" class="btn btn-quiet btn-sm" data-bn="বট" data-en="Bot">Bot</a>
+          </div>
+        </div>
+      </article>
+      <article class="card p-4 flex gap-4">
+        <span class="ic-tile"><span class="ua" data-ua="users" aria-hidden="true"></span></span>
+        <div class="min-w-0 flex-1">
+          <h3 class="font-medium" data-bn="ইসলামিক রিসোর্স সংগ্রহশালা" data-en="Islamic Resource Library">Islamic Resource Library</h3>
+          <p class="text-sm mt-1" data-bn="আমাদের ফেসবুক গ্রুপ ও টেলিগ্রাম চ্যানেল — রিসোর্স শেয়ার আর আলোচনার জায়গা।" data-en="Our Facebook group and Telegram channel — where resources are shared and discussed.">Our Facebook group and Telegram channel — where resources are shared and discussed.</p>
+          <div class="flex flex-wrap gap-2 mt-3">
+            <a href="https://facebook.com/groups/963422407394224" target="_blank" rel="noopener" class="btn btn-quiet btn-sm">Facebook Group</a>
+            <a href="https://t.me/islamic_resource_library" target="_blank" rel="noopener" class="btn btn-quiet btn-sm">Telegram</a>
+          </div>
         </div>
       </article>
     </div>
@@ -333,17 +343,21 @@
     <h2 class="serif text-2xl font-medium" data-bn="ডেভেলপার" data-en="Developer">Developer</h2>
     <p class="text-sm mt-1" style="color:var(--ink2)" data-bn="Our Family-র অ্যাপগুলো বানিয়েছেন তৌফিকুল ইসলাম, চট্টগ্রামের একজন মেডিকেল ছাত্র। অ্যাপ, বই বা কোনো সমস্যা সম্পর্কে জানাতে লিখুন।" data-en="Our Family's apps are made by Towfiqul Islam, a medical student in Chattogram, Bangladesh. Write about an app, a book, or a problem you found.">Our Family's apps are made by Towfiqul Islam, a medical student in Chattogram, Bangladesh. Write about an app, a book, or a problem you found.</p>
     <div class="grid sm:grid-cols-2 gap-4 mt-5">
-      <article class="card p-5">
-        <span class="ua" data-ua="send" aria-hidden="true"></span>
-        <h3 class="font-medium mt-2" data-bn="ইমেইল" data-en="Email">Email</h3>
-        <p class="text-sm mt-1" data-bn="প্রশ্ন, মতামত বা বাগ রিপোর্ট।" data-en="Questions, feedback, or bug reports.">Questions, feedback, or bug reports.</p>
-        <a href="mailto:towfiqul1010@gmail.com" class="btn btn-neutral btn-sm mt-3">towfiqul1010@gmail.com</a>
+      <article class="card p-4 flex gap-4">
+        <span class="ic-tile"><span class="ua" data-ua="send" aria-hidden="true"></span></span>
+        <div class="min-w-0 flex-1">
+          <h3 class="font-medium" data-bn="ইমেইল" data-en="Email">Email</h3>
+          <p class="text-sm mt-1" data-bn="প্রশ্ন, মতামত বা বাগ রিপোর্ট।" data-en="Questions, feedback, or bug reports.">Questions, feedback, or bug reports.</p>
+          <a href="mailto:towfiqul1010@gmail.com" class="btn btn-neutral btn-sm mt-3">towfiqul1010@gmail.com</a>
+        </div>
       </article>
-      <article class="card p-5">
-        <span class="ua" data-ua="package" aria-hidden="true"></span>
-        <h3 class="font-medium mt-2" data-bn="কোড" data-en="Code">Code</h3>
-        <p class="text-sm mt-1" data-bn="সব প্রজেক্টের সোর্স কোড GitHub-এ।" data-en="Every project's source code is on GitHub.">Every project's source code is on GitHub.</p>
-        <a href="https://github.com/MDTowfiqul" target="_blank" rel="noopener" class="btn btn-neutral btn-sm mt-3" data-bn="GitHub প্রোফাইল" data-en="GitHub profile">GitHub profile</a>
+      <article class="card p-4 flex gap-4">
+        <span class="ic-tile"><span class="ua" data-ua="package" aria-hidden="true"></span></span>
+        <div class="min-w-0 flex-1">
+          <h3 class="font-medium" data-bn="কোড" data-en="Code">Code</h3>
+          <p class="text-sm mt-1" data-bn="সব প্রজেক্টের সোর্স কোড GitHub-এ।" data-en="Every project's source code is on GitHub.">Every project's source code is on GitHub.</p>
+          <a href="https://github.com/MDTowfiqul" target="_blank" rel="noopener" class="btn btn-neutral btn-sm mt-3" data-bn="GitHub প্রোফাইল" data-en="GitHub profile">GitHub profile</a>
+        </div>
       </article>
     </div>
     <p class="text-sm mt-4" style="color:var(--ink2)"><span data-bn="গোপনীয়তা নীতি:" data-en="Privacy policy:">Privacy policy:</span> <a href="https://mdtowfiqul.github.io/Our-Days/privacy-en.html" target="_blank" rel="noopener" class="font-medium" style="color:var(--ink)" data-bn="Our Days-এর গোপনীয়তা নীতি" data-en="Our Days privacy policy">Our Days privacy policy</a></p>
