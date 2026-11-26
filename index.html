@@ -55,11 +55,6 @@
   .hero-tile svg { width: 26px; height: 26px; color: var(--acc); }
   .hero-tile span { font-size: 11px; font-weight: 500; line-height: 1.2; text-align: center; }
   @media (min-width: 768px) { .hero-tile svg { width: 30px; height: 30px; } .hero-tile span { font-size: 12px; } }
-  .mini-covers { display: flex; gap: 8px; }
-  .mini-covers a { width: 72px; flex: none; display: block; border-radius: 6px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 4px 12px rgba(0, 0, 0, .12); transition: filter 150ms cubic-bezier(.22,1,.36,1); }
-  .mini-covers a:hover { filter: brightness(1.05); }
-  .mini-covers img { width: 100%; aspect-ratio: 2 / 3; object-fit: cover; display: block; }
-
   /* Project covers: a flat deep-warm panel with the project's icon, large. */
   .visual-dark { background: #171310; color: #f5efe4; }
   .visual-dark .ua svg { filter: invert(1); opacity: 1; }
@@ -71,10 +66,6 @@
   .cover img { width: 96px; height: 96px; border-radius: 20px; display: block; box-shadow: 0 8px 24px rgba(0, 0, 0, .35); }
   .cover-chips { display: flex; gap: 6px; margin-top: 2px; }
   .cover-chips span { font-size: 11px; font-weight: 500; color: #c9bfa9; border: 1px solid rgba(245, 239, 228, .2); border-radius: 999px; padding: 3px 8px; }
-
-  /* Ebook Maker cover: a small book, built in code. */
-  .mini-book { width: 108px; aspect-ratio: 2 / 3; flex: none; background: #f3e9d2; border: 1px solid var(--line); border-radius: 4px 10px 10px 4px; box-shadow: 0 8px 20px rgba(0, 0, 0, .25); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; color: #5e554a; }
-  .mini-book .ua svg { filter: none !important; opacity: 1; }
 
   /* Icon tile for horizontal community/developer rows. */
   .ic-tile { width: 40px; height: 40px; flex: none; display: flex; align-items: center; justify-content: center; border-radius: 12px; background: var(--raised); border: 1px solid var(--line); }
@@ -204,7 +195,6 @@
           <h3 class="serif text-xl font-medium">Our Days</h3>
           <p class="text-sm mt-1" data-bn="কাপলদের জন্য ব্যক্তিগত দিন গোনার অ্যাপ — গুরুত্বপূর্ণ দিনগুলো একসাথে গুনুন, এনক্রিপ্টেড ক্লাউড ব্যাকআপসহ।" data-en="A private day counter for couples — count the days that matter, together, with encrypted cloud backup.">A private day counter for couples — count the days that matter, together, with encrypted cloud backup.</p>
           <div class="flex flex-wrap items-center gap-2 mt-4">
-            <span class="meta" data-bn="পরীক্ষামূলক পর্যায়ে" data-en="In closed testing">In closed testing</span>
             <span class="ml-auto flex flex-wrap gap-2">
               <a href="https://play.google.com/store/apps/details?id=ourdays.app" target="_blank" rel="noopener" class="btn btn-neutral btn-sm" data-bn="Google Play" data-en="Google Play">Google Play</a>
               <a href="https://github.com/MDTowfiqul/Our-Days" target="_blank" rel="noopener" class="btn btn-quiet btn-sm" data-bn="GitHub" data-en="GitHub">GitHub</a>
@@ -235,11 +225,11 @@
       </article>
 
       <article class="card overflow-hidden">
-        <div class="visual">
-          <div class="mini-covers">
-            <a href="https://mdtowfiqul.github.io/our-boighar/books/100-questions-answers/"><img src="https://mdtowfiqul.github.io/our-boighar/img/cover-100-questions-answers.jpg" alt="100 Questions &amp; Answers" loading="lazy"></a>
-            <a href="https://mdtowfiqul.github.io/our-boighar/books/abu-bakar-ra-150-shikkhaniyo-ghatona/"><img src="https://mdtowfiqul.github.io/our-boighar/img/cover-abu-bakar-ra-150-shikkhaniyo-ghatona.jpg" alt="Abu Bakar (ra) — 150 shikkhaniyo ghatona" loading="lazy"></a>
-            <a href="https://mdtowfiqul.github.io/our-boighar/books/ahmad-deedat-rochonaboli/"><img src="https://mdtowfiqul.github.io/our-boighar/img/cover-ahmad-deedat-rochonaboli.jpg" alt="Ahmad Deedat Rochonaboli" loading="lazy"></a>
+        <div class="visual visual-dark">
+          <div class="cover">
+            <span class="ua" data-ua="book" aria-hidden="true"></span>
+            <p class="cover-name">Our Boighar</p>
+            <p class="cover-tag">479+ books</p>
           </div>
         </div>
         <div class="p-5">
@@ -273,10 +263,10 @@
 
       <article class="card overflow-hidden">
         <div class="visual visual-dark">
-          <div class="mini-book">
-            <span class="ua" data-ua="book" aria-hidden="true"></span>
-            <p class="text-xs font-semibold">EPUB</p>
-            <p class="meta">PDF → EPUB</p>
+          <div class="cover">
+            <span class="ua" data-ua="tool" aria-hidden="true"></span>
+            <p class="cover-name">Our Ebook Maker</p>
+            <p class="cover-tag">PDF → EPUB</p>
           </div>
         </div>
         <div class="p-5">
