@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Our Family — Free books, apps &amp; resources</title>
-<meta name="description" content="Our Family — free Islamic ebooks, apps, and resources. Our Days, Our Boighar, Our Islamic Archive, and Our Ebook Maker.">
+<meta name="description" content="Our Family — free Islamic ebooks, apps, and resources, made by Towfiqul Islam. Our Days, Our Reader, Our Boighar, Our Islamic Archive, and Our Ebook Maker.">
 <script src="https://cdn.tailwindcss.com"></script>
 <script>if (window.tailwind) tailwind.config = { darkMode: "class" };</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
@@ -73,6 +73,14 @@
   .mini-book { width: 84px; aspect-ratio: 2 / 3; flex: none; background: #f3e9d2; border: 1px solid var(--line); border-radius: 4px 8px 8px 4px; box-shadow: 0 4px 12px rgba(0, 0, 0, .12); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; color: #5e554a; }
   .mini-book .ua svg { filter: none !important; opacity: 1; }
 
+  /* Reader preview: an open book, built in code. */
+  .reader { display: flex; }
+  .reader-page { width: 84px; background: var(--card); border: 1px solid var(--line); padding: 16px 12px; }
+  .reader-page:first-child { border-radius: 8px 2px 2px 8px; border-right: none; }
+  .reader-page:last-child { border-radius: 2px 8px 8px 2px; }
+  .reader-page .rl { display: block; height: 6px; background: var(--raised); border-radius: 3px; margin-bottom: 8px; }
+  .reader-page .rl.acc { background: var(--acc); width: 28px; }
+
   /* useanimations icons: one size, muted; white on dark surfaces. */
   .ua { display: inline-flex; flex: none; width: 18px; height: 18px; align-items: center; justify-content: center; }
   .ua svg { display: block; width: 18px; height: 18px; opacity: .75; }
@@ -117,6 +125,7 @@
       <a href="#" class="drawer-link flex items-center gap-2 rounded-lg px-3 py-2.5 hover:bg-[var(--raised)]"><span class="ua" data-ua="home" aria-hidden="true"></span><span data-bn="হোম" data-en="Home">Home</span></a>
       <a href="#projects" class="drawer-link flex items-center gap-2 rounded-lg px-3 py-2.5 hover:bg-[var(--raised)]"><span class="ua" data-ua="package" aria-hidden="true"></span><span data-bn="প্রজেক্ট" data-en="Projects">Projects</span></a>
       <a href="#community" class="drawer-link flex items-center gap-2 rounded-lg px-3 py-2.5 hover:bg-[var(--raised)]"><span class="ua" data-ua="users" aria-hidden="true"></span><span data-bn="কমিউনিটি" data-en="Community">Community</span></a>
+      <a href="#developer" class="drawer-link flex items-center gap-2 rounded-lg px-3 py-2.5 hover:bg-[var(--raised)]"><span class="ua" data-ua="send" aria-hidden="true"></span><span data-bn="ডেভেলপার" data-en="Developer">Developer</span></a>
       <a href="#mission" class="drawer-link flex items-center gap-2 rounded-lg px-3 py-2.5 hover:bg-[var(--raised)]"><span class="ua" data-ua="target" aria-hidden="true"></span><span data-bn="আমাদের উদ্দেশ্য" data-en="Our mission">Our mission</span></a>
     </nav>
     <hr class="my-5" style="border-color:var(--line)">
@@ -159,7 +168,7 @@
   <!-- Stats -->
   <section class="grid grid-cols-4 gap-2 sm:gap-3 mt-6 text-center">
     <div class="card p-3">
-      <p class="text-xl sm:text-2xl font-medium tabular-nums"><span data-bn="৪" data-en="4">4</span></p>
+      <p class="text-xl sm:text-2xl font-medium tabular-nums"><span data-bn="৫" data-en="5">5</span></p>
       <p class="text-xs font-medium mt-1" style="color:var(--ink3)" data-bn="প্রজেক্ট" data-en="Projects">Projects</p>
     </div>
     <div class="card p-3">
@@ -179,7 +188,7 @@
   <!-- Projects -->
   <section id="projects" class="mt-12">
     <h2 class="serif text-2xl font-medium" data-bn="আমাদের প্রজেক্ট" data-en="Our projects">Our projects</h2>
-    <p class="text-sm mt-1" style="color:var(--ink2)" data-bn="চারটি প্রজেক্ট, একটাই উদ্দেশ্য — সবার জন্য বিনামূল্যে।" data-en="Four projects, one purpose — free for everyone.">Four projects, one purpose — free for everyone.</p>
+    <p class="text-sm mt-1" style="color:var(--ink2)" data-bn="পাঁচটি প্রজেক্ট, একটাই উদ্দেশ্য — সবার জন্য বিনামূল্যে।" data-en="Five projects, one purpose — free for everyone.">Five projects, one purpose — free for everyone.</p>
 
     <div class="grid sm:grid-cols-2 gap-4 mt-5">
       <article class="card overflow-hidden">
@@ -195,8 +204,31 @@
           <h3 class="serif text-xl font-medium">Our Days</h3>
           <p class="text-sm mt-1" data-bn="কাপলদের জন্য ব্যক্তিগত দিন গোনার অ্যাপ — গুরুত্বপূর্ণ দিনগুলো একসাথে গুনুন, এনক্রিপ্টেড ক্লাউড ব্যাকআপসহ।" data-en="A private day counter for couples — count the days that matter, together, with encrypted cloud backup.">A private day counter for couples — count the days that matter, together, with encrypted cloud backup.</p>
           <div class="flex flex-wrap items-center gap-2 mt-4">
-            <span class="meta" data-bn="শীঘ্রই আসছে" data-en="Launching soon">Launching soon</span>
-            <a href="https://github.com/MDTowfiqul/Our-Days" target="_blank" rel="noopener" class="btn btn-neutral btn-sm ml-auto" data-bn="GitHub-এ দেখুন" data-en="View on GitHub">View on GitHub</a>
+            <span class="meta" data-bn="পরীক্ষামূলক পর্যায়ে" data-en="In closed testing">In closed testing</span>
+            <span class="ml-auto flex flex-wrap gap-2">
+              <a href="https://play.google.com/store/apps/details?id=ourdays.app" target="_blank" rel="noopener" class="btn btn-neutral btn-sm" data-bn="Google Play" data-en="Google Play">Google Play</a>
+              <a href="https://github.com/MDTowfiqul/Our-Days" target="_blank" rel="noopener" class="btn btn-quiet btn-sm" data-bn="GitHub" data-en="GitHub">GitHub</a>
+            </span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card overflow-hidden">
+        <div class="visual">
+          <div class="reader">
+            <div class="reader-page"><span class="rl acc"></span><span class="rl" style="width:88%"></span><span class="rl" style="width:96%"></span><span class="rl" style="width:76%"></span><span class="rl" style="width:90%"></span></div>
+            <div class="reader-page"><span class="rl" style="width:92%"></span><span class="rl" style="width:80%"></span><span class="rl" style="width:95%"></span><span class="rl" style="width:70%"></span><span class="rl" style="width:84%"></span></div>
+          </div>
+        </div>
+        <div class="p-5">
+          <h3 class="serif text-xl font-medium">Our Reader</h3>
+          <p class="text-sm mt-1" data-bn="EPUB পড়ার অ্যাপ — ওয়েবে ও Android-এ, লাইব্রেরি, বুকমার্ক আর টেক্সট-টু-স্পিচসহ।" data-en="Read EPUBs on the web or on Android — with a library, bookmarks, ratings, and text-to-speech.">Read EPUBs on the web or on Android — with a library, bookmarks, ratings, and text-to-speech.</p>
+          <div class="flex flex-wrap items-center gap-2 mt-4">
+            <span class="meta" data-bn="লাইভ • ওয়েব + Android" data-en="Live • Web + Android">Live • Web + Android</span>
+            <span class="ml-auto flex flex-wrap gap-2">
+              <a href="https://our-reader.vercel.app/" target="_blank" rel="noopener" class="btn btn-neutral btn-sm" data-bn="রিডার খুলুন" data-en="Open the reader">Open the reader</a>
+              <a href="https://github.com/MDTowfiqul/our-reader" target="_blank" rel="noopener" class="btn btn-quiet btn-sm" data-bn="GitHub" data-en="GitHub">GitHub</a>
+            </span>
           </div>
         </div>
       </article>
@@ -296,6 +328,27 @@
     </div>
   </section>
 
+  <!-- Developer -->
+  <section id="developer" class="mt-12">
+    <h2 class="serif text-2xl font-medium" data-bn="ডেভেলপার" data-en="Developer">Developer</h2>
+    <p class="text-sm mt-1" style="color:var(--ink2)" data-bn="Our Family-র অ্যাপগুলো বানিয়েছেন তৌফিকুল ইসলাম, চট্টগ্রামের একজন মেডিকেল ছাত্র। অ্যাপ, বই বা কোনো সমস্যা সম্পর্কে জানাতে লিখুন।" data-en="Our Family's apps are made by Towfiqul Islam, a medical student in Chattogram, Bangladesh. Write about an app, a book, or a problem you found.">Our Family's apps are made by Towfiqul Islam, a medical student in Chattogram, Bangladesh. Write about an app, a book, or a problem you found.</p>
+    <div class="grid sm:grid-cols-2 gap-4 mt-5">
+      <article class="card p-5">
+        <span class="ua" data-ua="send" aria-hidden="true"></span>
+        <h3 class="font-medium mt-2" data-bn="ইমেইল" data-en="Email">Email</h3>
+        <p class="text-sm mt-1" data-bn="প্রশ্ন, মতামত বা বাগ রিপোর্ট।" data-en="Questions, feedback, or bug reports.">Questions, feedback, or bug reports.</p>
+        <a href="mailto:towfiqul1010@gmail.com" class="btn btn-neutral btn-sm mt-3">towfiqul1010@gmail.com</a>
+      </article>
+      <article class="card p-5">
+        <span class="ua" data-ua="package" aria-hidden="true"></span>
+        <h3 class="font-medium mt-2" data-bn="কোড" data-en="Code">Code</h3>
+        <p class="text-sm mt-1" data-bn="সব প্রজেক্টের সোর্স কোড GitHub-এ।" data-en="Every project's source code is on GitHub.">Every project's source code is on GitHub.</p>
+        <a href="https://github.com/MDTowfiqul" target="_blank" rel="noopener" class="btn btn-neutral btn-sm mt-3" data-bn="GitHub প্রোফাইল" data-en="GitHub profile">GitHub profile</a>
+      </article>
+    </div>
+    <p class="text-sm mt-4" style="color:var(--ink2)"><span data-bn="গোপনীয়তা নীতি:" data-en="Privacy policy:">Privacy policy:</span> <a href="https://mdtowfiqul.github.io/Our-Days/privacy-en.html" target="_blank" rel="noopener" class="font-medium" style="color:var(--ink)" data-bn="Our Days-এর গোপনীয়তা নীতি" data-en="Our Days privacy policy">Our Days privacy policy</a></p>
+  </section>
+
   <!-- Mission -->
   <section id="mission" class="mt-12 pt-8" style="border-top:1px solid var(--line)">
     <h2 class="serif text-2xl font-medium" data-bn="আমাদের উদ্দেশ্য" data-en="Our mission">Our mission</h2>
@@ -304,7 +357,8 @@
 
   <footer class="text-center text-sm py-8" style="color:var(--ink3)">
     <p><span data-bn="Our Family — Our প্রজেক্ট পরিবারের অংশ" data-en="Our Family — part of the Our projects">Our Family — part of the Our projects</span></p>
-    <p class="mt-1"><span data-bn="Our Days • Our Boighar • Our Islamic Archive • Our Ebook Maker" data-en="Our Days • Our Boighar • Our Islamic Archive • Our Ebook Maker">Our Days • Our Boighar • Our Islamic Archive • Our Ebook Maker</span></p>
+    <p class="mt-1"><span data-bn="Our Days • Our Reader • Our Boighar • Our Islamic Archive • Our Ebook Maker" data-en="Our Days • Our Reader • Our Boighar • Our Islamic Archive • Our Ebook Maker">Our Days • Our Reader • Our Boighar • Our Islamic Archive • Our Ebook Maker</span></p>
+    <p class="mt-2"><a href="mailto:towfiqul1010@gmail.com" style="color:var(--ink2)">towfiqul1010@gmail.com</a> · <a href="https://github.com/MDTowfiqul" target="_blank" rel="noopener" style="color:var(--ink2)">GitHub</a> · <a href="https://mdtowfiqul.github.io/Our-Days/privacy-en.html" target="_blank" rel="noopener" style="color:var(--ink2)" data-bn="গোপনীয়তা নীতি" data-en="Privacy policy">Privacy policy</a></p>
   </footer>
 </div>
 
@@ -486,13 +540,12 @@
     return fetch('resources.json').then(function (r) { return r.json(); }).then(function (j) { archive = j; return j; });
   }
   function think(fn) {
-    fab.classList.add('thinking');
     var d = document.createElement('div');
     d.className = 'max-w-[92%] msg-bot rounded-2xl px-3 py-2 text-sm';
     d.innerHTML = '…';
     msgs.appendChild(d);
     msgs.scrollTop = msgs.scrollHeight;
-    setTimeout(function () { d.remove(); fab.classList.remove('thinking'); fn(); }, 500);
+    setTimeout(function () { d.remove(); fn(); }, 500);
   }
   function answerBook(q) {
     loadBooks().then(function (list) {
